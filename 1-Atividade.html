@@ -15,6 +15,8 @@
 
 <body>
     <div class="container">
+        <h1>Descobrindo números em um intervalo</h1>
+        <h5>Escolhe números entre 10 e 20.</h3>
         <div class="row">
             <div class="col">
                 <p class="h6"> </p>
@@ -26,23 +28,46 @@
                         <button onclick="verificar()" class="btn btn-outline-secondary" type="button">Verificar</button>
                     </div>
                 </div>
+                <div>
                 <p id="msg" class="h6"></p>
+                </div>
+                <div>
+                    <p id="conclusao" class="h6"></p>
+                </div>
             </div>
         </div>
     </div>
 
     <script language="javascript">
         function verificar() {
-            valor_input = document.getElementById('numero').value
+            var input=document.getElementById('numero');
+            var valor_input= input.value;
+            var mensagem= document.getElementById('msg');
+            var mensagem_pai= mensagem.parentElement;
+
             try {
                 if (valor_input == '') { throw 'Informe um valor.' }
+                if (isNaN(valor_input)) {throw 'Opa você não inseriu um número.'}
+
+                if((valor_input>10)&&(valor_input<20)){
+                    mensagem.innerText= "Parabéns, você está correto!";
+                    mensagem_pai.className= "alert alert-success";
+                }
+                else{
+                    mensagem.innerText= "Opa, esse número não está no intervalo esperado.";
+                    mensagem_pai.className= "alert alert-danger";
+                }
             }
             catch (erro) {
-                document.getElementById('msg').innerText = "Erro: " + erro;
+                mensagem.innerText = "Erro: " + erro;
+                mensagem_pai.className= "alert alert-danger";
             }
             finally {
-                console.log('Serei executado sempre')
+                mensagem_conclusao= document.getElementById('conclusao');
+                mensagem_conclusao.innerText="Obrigada por participar!";
+                mensagem_conclusao.className= "alert alert-primary"
             }
+            input.value="";
         }
     </script>
 
